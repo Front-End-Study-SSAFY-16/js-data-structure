@@ -144,6 +144,19 @@ class DoubleLinkedList {
     }
   }
 
+  reverse() {
+    if (this.#size <= 1) {
+      return;
+    }
+
+    for (let node = this.#head; node != null; ) {
+      const nextNode = node._next;
+      [node._prev, node._next] = [node._next, node._prev];
+      node = nextNode;
+    }
+    [this.#head, this.#tail] = [this.#tail, this.#head];
+  }
+
   toArray() {
     const arr = [];
     for (let node = this.#head; node != null; node = node._next) {
@@ -170,9 +183,11 @@ console.log(doubleLinkedList.toArray());
 doubleLinkedList.insert(doubleLinkedList.find(1), 999); // 1 999
 doubleLinkedList.insert(doubleLinkedList.find(1), 555); // 1 555 999
 doubleLinkedList.insert(doubleLinkedList.find(999), 1000); // 1 555 999 1000
-doubleLinkedList.delete(doubleLinkedList.find(555)); // 1 999 1000
+doubleLinkedList.reverse(); // 1000 999 555 1
 console.log(doubleLinkedList.toArray());
-doubleLinkedList.delete(doubleLinkedList.find(1)); // 999 1000
+doubleLinkedList.delete(doubleLinkedList.find(555)); // 100 999 1
+console.log(doubleLinkedList.toArray());
+doubleLinkedList.delete(doubleLinkedList.find(1)); // 1000 999
 console.log(doubleLinkedList.toArray());
 doubleLinkedList.delete(doubleLinkedList.find(1000)); // 999
 console.log(doubleLinkedList.toArray());
