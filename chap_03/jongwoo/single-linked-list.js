@@ -18,9 +18,15 @@ class SingleLinkedList {
     this.#size = 0;
   }
 
-  size = () => this.#size;
-  empty = () => this.#size === 0;
-  push = (data) => {
+  size() {
+    return this.#size;
+  }
+
+  empty() {
+    return this.#size === 0;
+  }
+
+  push(data) {
     const newNode = new Node(data);
 
     if (!this.#head) {
@@ -31,8 +37,9 @@ class SingleLinkedList {
     }
 
     ++this.#size;
-  };
-  pop = () => {
+  }
+
+  pop() {
     if (this.empty()) {
       throw new Error("리스트가 비어 있습니다.");
     }
@@ -42,15 +49,17 @@ class SingleLinkedList {
     --this.#size;
 
     return ret;
-  };
-  find = (data) => {
+  }
+
+  find(data) {
     for (let node = this.#head; node != null; node = node._next) {
       if (node._data === data) {
         return node;
       }
     }
-  };
-  insert = (beforeNode, data) => {
+  }
+
+  insert(beforeNode, data) {
     if (!beforeNode) {
       return;
     }
@@ -64,8 +73,9 @@ class SingleLinkedList {
         break;
       }
     }
-  };
-  delete = (targetNode) => {
+  }
+
+  delete(targetNode) {
     if (!targetNode) {
       return;
     }
@@ -82,8 +92,13 @@ class SingleLinkedList {
         }
       }
     }
-  };
-  reverse = () => {
+  }
+
+  reverse() {
+    if (this.#size <= 1) {
+      return;
+    }
+
     let curNode = null;
     let prevNode = null;
     for (curNode = this.#head; curNode != null; ) {
@@ -94,14 +109,15 @@ class SingleLinkedList {
     }
 
     this.#head = prevNode;
-  };
-  toArray = () => {
+  }
+
+  toArray() {
     const arr = [];
     for (let node = this.#head; node != null; node = node._next) {
       arr.push(node._data);
     }
     return arr;
-  };
+  }
 }
 
 singleLinkedList = new SingleLinkedList();
