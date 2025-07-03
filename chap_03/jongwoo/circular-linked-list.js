@@ -1,5 +1,5 @@
 class Node {
-  // private로 설정하면 SingleLinkedList 클래스에서 접근할 수 없으므로 관용적으로 사용하지 말라는 _ prefix 사용
+  // private로 설정하면 CircularLinkedList 클래스에서 접근할 수 없으므로 관용적으로 사용하지 말라는 _ prefix 사용
   _data;
   _next;
 
@@ -18,9 +18,15 @@ class CircularLinkedList {
     this.#size = 0;
   }
 
-  size = () => this.#size;
-  empty = () => this.#size === 0;
-  pushFront = (data) => {
+  size() {
+    return this.#size;
+  }
+
+  empty() {
+    return this.#size === 0;
+  }
+
+  pushFront(data) {
     const newNode = new Node(data);
 
     if (!this.#tail) {
@@ -32,8 +38,9 @@ class CircularLinkedList {
     }
 
     ++this.#size;
-  };
-  pushBack = (data) => {
+  }
+
+  pushBack(data) {
     const newNode = new Node(data);
 
     if (!this.#tail) {
@@ -45,8 +52,9 @@ class CircularLinkedList {
     }
 
     ++this.#size;
-  };
-  popFront = () => {
+  }
+
+  popFront() {
     if (this.empty()) {
       throw new Error("리스트가 비어 있습니다.");
     }
@@ -62,8 +70,9 @@ class CircularLinkedList {
     this.#tail._next = this.#tail._next._next;
     --this.#size;
     return ret;
-  };
-  popBack = () => {
+  }
+
+  popBack() {
     if (this.empty()) {
       throw new Error("리스트가 비어 있습니다.");
     }
@@ -84,8 +93,9 @@ class CircularLinkedList {
     node._next = this.#tail._next;
     --this.#size;
     return ret;
-  };
-  find = (data) => {
+  }
+
+  find(data) {
     if (this.empty()) {
       return null;
     }
@@ -101,8 +111,9 @@ class CircularLinkedList {
     }
 
     return null;
-  };
-  insert = (beforeNode, data) => {
+  }
+
+  insert(beforeNode, data) {
     if (beforeNode === this.#tail) {
       this.pushBack(data);
       return;
@@ -118,8 +129,9 @@ class CircularLinkedList {
         break;
       }
     }
-  };
-  delete = (targetNode) => {
+  }
+
+  delete(targetNode) {
     if (!targetNode) {
       return;
     }
@@ -147,8 +159,9 @@ class CircularLinkedList {
         }
       }
     }
-  };
-  reverse = () => {
+  }
+
+  reverse() {
     if (this.#size <= 1) {
       return;
     }
@@ -167,9 +180,9 @@ class CircularLinkedList {
     curNode._next = prevNode;
     firstNode._next = this.#tail;
     this.#tail = firstNode;
-  };
+  }
 
-  toArray = () => {
+  toArray() {
     const arr = [];
 
     if (this.empty()) {
@@ -182,26 +195,26 @@ class CircularLinkedList {
     arr.push(this.#tail._data);
 
     return arr;
-  };
+  }
 }
 
-const list = new CircularLinkedList();
-list.pushBack(10); // 10
-list.pushFront(9); // 9 10
-list.pushFront(8); // 8 9 10
-list.popFront(); // 9 10
-list.popFront(); // 10
-list.pushFront(7); // 7 10
-list.insert(list.find(7), 8); // 7 8 10
-list.pushFront(6); // 6 7 8 10
-list.delete(list.find(7)); // 6 8 10
-console.log(list.toArray());
-list.reverse(); // 10 8 6
-console.log(list.toArray());
-console.log(list.size()); // 3
-list.delete(list.find(10)); // 8 6
-console.log(list.toArray());
-list.delete(list.find(8)); // 6
-console.log(list.toArray());
-list.delete(list.find(6)); //
-console.log(list.empty()); // true
+const circularLinkedList = new CircularLinkedList();
+circularLinkedList.pushBack(10); // 10
+circularLinkedList.pushFront(9); // 9 10
+circularLinkedList.pushFront(8); // 8 9 10
+circularLinkedList.popFront(); // 9 10
+circularLinkedList.popFront(); // 10
+circularLinkedList.pushFront(7); // 7 10
+circularLinkedList.insert(circularLinkedList.find(7), 8); // 7 8 10
+circularLinkedList.pushFront(6); // 6 7 8 10
+circularLinkedList.delete(circularLinkedList.find(7)); // 6 8 10
+console.log(circularLinkedList.toArray());
+circularLinkedList.reverse(); // 10 8 6
+console.log(circularLinkedList.toArray());
+console.log(circularLinkedList.size()); // 3
+circularLinkedList.delete(circularLinkedList.find(10)); // 8 6
+console.log(circularLinkedList.toArray());
+circularLinkedList.delete(circularLinkedList.find(8)); // 6
+console.log(circularLinkedList.toArray());
+circularLinkedList.delete(circularLinkedList.find(6)); //
+console.log(circularLinkedList.empty()); // true
